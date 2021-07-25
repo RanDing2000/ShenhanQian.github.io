@@ -1,0 +1,38 @@
+---
+layout: default
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="pub-header">
+    <h1 class="pub-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="pub-meta">
+      <!-- <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        {{ page.date | date: date_format }}
+      </time> -->
+  
+      <div class="pub-meta-italic">{{ page.authors}}</div>
+      <div class="pub-meta">{{ page.publisher }}</div>
+
+      <div class="pub-resource-list">
+        {% assign links = "" | split: ',' %}
+        {% for t in site.resource_types %}
+          {% if page[t] != "" and page[t] != nil %}
+            {% capture item %}<span><a href= {{ page[t] }}>{{ t }}</a></span>{% endcapture %}
+            {% assign links = links | push: item %}
+          {% endif %}
+        {% endfor %}
+        {{ links | join: " / " }}
+      </div>
+  </header>
+
+  <div class="pub-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  {%- if site.disqus.shortname -%}
+    {%- include disqus_comments.html -%}
+  {%- endif -%}
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+</article>

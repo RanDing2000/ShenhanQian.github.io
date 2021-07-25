@@ -1,0 +1,223 @@
+---
+layout: default
+---
+
+<div class="home">
+  <!-- {%- if page.title -%}
+    <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%} -->
+
+  <div class="portrait">
+    <img src="{{ site.portrait_link }}" alt="Portrait">
+  </div>
+    
+  <div class="info-card">
+      <div style="display:inline-block; line-height:1.5; vertical-align: middle;">
+        <div style="font-size:160%; font-family: 'Noto Serif SC', STXingkai, KaiTi;"> {{ site.name_zh }} </div>
+        <div style="font-size:140%; font-family: Merriweather, Georgia, Times, 'Times New Roman';"> <b> {{ site.name }} </b> </div>
+        <br>
+        {{ site.position }} <br>
+        {{ site.institution }} <br>
+        <br>
+        {%- include social.html -%}
+      </div>
+  </div>
+  <div style="clear:both;"></div>
+
+  {{ content }}
+
+  {%- if site.categories.publications.size > 0 -%}
+    <div>
+      <h2>{{ page.list_title | default: "Publications" }}</h2>
+
+      <ul class="post-list">
+        {%- for post in site.categories.publications -%}
+          {% if post.hide != true %}
+            <li>
+              <div class="post-list-text">
+
+                <div class="post-list-title">
+                  {% if post.permalink != "" and post.permalink != nil %}
+                    <a class="post-list-link" href="{{ post.permalink | relative_url }}"> 
+                      {{ post.title | escape }}
+                    </a>
+                  {% else %}
+                    {{ post.title | escape }}
+                  {% endif %}
+                </div>
+
+                <div class="post-list-meta-italic">{{ post.authors | replace: "Shenhan Qian", "<u>Shenhan Qian</u>" }}</div>
+
+                <!-- <div class="post-list-meta">{{ post.publisher | replace: "(", "(<b>" | replace: ")", "</b>)" }}</div> -->
+                <div class="post-list-meta">{{ post.publisher }}</div>
+
+                <div class="post-list-link-resource">
+                  {% assign links = "" | split: ',' %}
+                  {% for t in site.resource_types %}
+                    {% if post[t] != "" and post[t] != nil %}
+                      {% capture item %}<span><a href= {{ post[t] }}>{{ t }}</a></span>{% endcapture %}
+                      {% assign links = links | push: item %}
+                    {% endif %}
+                  {% endfor %}
+                  {{ links | join: " / " }}
+                </div>
+                
+                {% if post.description != "" and post.description != nil %}
+                  <div class="post-list-meta-description">{{ post.description }}</div>
+                {% endif %}
+
+              </div>
+
+              {% if post.teaser_image != "" and post.teaser_image != nil or post.teaser_video != "" and post.teaser_video != nil %}
+                <div class="post-list-img">
+                  {% if post.teaser_image != "" and post.teaser_image != nil %}
+                    <img src="{{ post.teaser_image}}" alt=""/>
+                  {% endif %}
+
+                  {% if post.teaser_video != "" and post.teaser_video != nil %}
+                    <video autoplay loop muted>
+                      <source src="{{ post.teaser_video}}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  {% endif %}
+
+                </div>
+              {% endif %}
+              <div style="clear:both;"></div>
+            </li>
+          {% endif %}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  {%- if site.categories.projects.size > 0 -%}
+    <div>
+      <h2>{{ page.list_title | default: "Projects" }}</h2>
+      
+      <ul class="post-list">
+        {%- assign date_format = site.minima.date_format | default: "%b, %Y" -%}
+        {%- for post in site.categories.projects -%}
+          {% if post.hide != true %}
+            <li>
+              <div class="post-list-text">
+                
+                <div class="post-list-title">{{ post.title | escape }}</div>
+
+                <div class="post-list-meta-italic" style="float:left">{{ post.type }}</div>
+
+                {% if post.date_begin != "" and post.date_begin != nil and post.date_end != "" and post.date_end != nil %}
+                  <div class="post-list-meta-italic" style="float:left">{{ post.date_begin | date: date_format }} - {{ post.date_end | date: date_format }}</div>
+                {% else %}
+                  <div class="post-list-meta-italic" style="float:left">{{ post.date | date: date_format }}</div>
+                {% endif %}
+
+                <div style="clear:both;"></div>
+
+                <div class="post-list-link-resource">
+                  {% assign links = "" | split: ',' %}
+                  {% for t in site.resource_types %}
+                    {% if post[t] != "" and post[t] != nil %}
+                      {% capture item %}<span><a href= {{ post[t] }}>{{ t }}</a></span>{% endcapture %}
+                      {% assign links = links | push: item %}
+                    {% endif %}
+                  {% endfor %}
+                  {{ links | join: " / " }}
+                </div>
+
+                {% if post.description != "" and post.description != nil %}
+                  <div class="post-list-meta-description">{{ post.description }}</div>
+                {% endif %}
+
+              </div>
+
+              {% if post.teaser_image != "" and post.teaser_image != nil or post.teaser_video != "" and post.teaser_video != nil %}
+                <div class="post-list-img">
+
+                  {% if post.teaser_image != "" and post.teaser_image != nil %}
+                    <img src="{{ post.teaser_image}}" alt=""/>
+                  {% endif %}
+
+                  {% if post.teaser_video != "" and post.teaser_video != nil %}
+                    <video autoplay loop muted>
+                      <source src="{{ post.teaser_video}}" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                  {% endif %}
+
+                </div>
+              {% endif %}
+              <div style="clear:both;"></div>
+
+            </li>
+          {% endif %}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  {%- if site.categories.awards.size > 0 -%}
+    <div>
+      <h2>{{ page.list_title | default: "Awards" }}</h2>
+      <ul class="post-list">
+        {%- assign date_format = site.minima.date_format | default: "%b, %Y" -%}
+        {%- for post in site.categories.awards -%}
+          {% if post.hide != true %}
+            <li>
+              <div class="post-list-text">
+
+                <div class="post-list-title">{{ post.title | escape }}</div>
+
+                <div class="post-list-meta-italic" style="float:left">{{ post.type }}</div>
+
+                {% if post.date_begin != "" and post.date_begin != nil and post.date_end != "" and post.date_end != nil %}
+                  <div class="post-list-meta-italic" style="float:left">{{ post.date_begin | date: date_format }} - {{ post.date_end | date: date_format }}</div>
+                {% else %}
+                  <div class="post-list-meta-italic" style="float:left">{{ post.date | date: date_format }}</div>
+                {% endif %}
+
+                <div style="clear:both;"></div>
+                
+                <div class="post-list-link-resource">
+                  {% assign links = "" | split: ',' %}
+                  {% for t in site.resource_types %}
+                    {% if post[t] != "" and post[t] != nil %}
+                      {% capture item %}<span><a href= {{ post[t] }}>{{ t }}</a></span>{% endcapture %}
+                      {% assign links = links | push: item %}
+                    {% endif %}
+                  {% endfor %}
+                  {{ links | join: " / " }}
+                </div>
+
+                {% if post.description != "" and post.description != nil %}
+                  <div class="post-list-meta-description">{{ post.description }}</div>
+                {% endif %}
+
+              </div>
+
+              {% if post.teaser_image != "" and post.teaser_image != nil or post.teaser_video != "" and post.teaser_video != nil %}
+              <div class="post-list-img">
+
+                {% if post.teaser_image != "" and post.teaser_image != nil %}
+                  <img src="{{ post.teaser_image}}" alt=""/>
+                {% endif %}
+
+                {% if post.teaser_video != "" and post.teaser_video != nil %}
+                  <video autoplay loop muted>
+                    <source src="{{ post.teaser_video}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                {% endif %}
+                
+              </div>
+              {% endif %}
+              <div style="clear:both;"></div>
+
+            </li>
+          {% endif %}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+</div>
