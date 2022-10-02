@@ -16,8 +16,12 @@ layout: default
         <div style="font-size:160%; font-family: 'Noto Serif SC', STXingkai, KaiTi;"> {{ site.name_zh }} </div>
         <div style="font-size:140%; font-family: Merriweather, Georgia, Times, 'Times New Roman';"> <b> {{ site.name }} </b> </div>
         <br>
-        {{ site.position }} <br>
-        {{ site.institution }} <br>
+        {% if site.position != "" and site.position != nil %}
+          {{ site.position }} <br>
+        {% endif %}
+        {% if site.institution != "" and site.institution != nil %}
+          {{ site.institution }} <br>
+        {% endif %}
         <br>
         {%- include social.html -%}
       </div>
