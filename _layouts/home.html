@@ -41,13 +41,7 @@ layout: default
               <div class="post-list-text">
 
                 <div class="post-list-title">
-                  {% if post.permalink != "" and post.permalink != nil %}
-                    <a class="post-list-link" href="{{ post.permalink | relative_url }}"> 
-                      {{ post.title | escape }}
-                    </a>
-                  {% else %}
-                    {{ post.title | escape }}
-                  {% endif %}
+                  {{ post.title | escape }}
                 </div>
 
                 <div class="post-list-meta-italic">{{ post.authors | replace: "Shenhan Qian", "<u>Shenhan Qian</u>" }}</div>

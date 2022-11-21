@@ -254,6 +254,10 @@
   color: $grey-color;
   font-style: italic;
   margin-right: 1em;
+
+  a {
+    color: $text-color;
+  }
 }
 
 .post-list-meta-description {
@@ -395,6 +399,10 @@
   color: $grey-color;
   text-align: center;
   font-style: italic;
+
+  a {
+    color: $text-color;
+  }
 }
 
 .pub-resource-list {

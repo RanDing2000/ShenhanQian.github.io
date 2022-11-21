@@ -28,7 +28,7 @@ twitter_username: ShenhanQian
 portrait_link: /assets/portrait.jpg
 resume_link: /assets/CV-ShenhanQian-en.pdf
 google_analytics: G-VSD2Q2NX9C
-resource_types: ["arxiv", "paper", "record", "report", "video", "code", "poster"]
+resource_types: ["project", "arxiv", "paper", "record", "report", "video", "code", "poster"]
 
 # description: >- # this means to ignore newlines until "baseurl:"
 #   Write an awesome description for your new site here. You can edit this
