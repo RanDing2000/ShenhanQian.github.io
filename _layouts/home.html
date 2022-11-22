@@ -44,9 +44,30 @@ layout: default
                   {{ post.title | escape }}
                 </div>
 
-                <div class="post-list-meta-italic">{{ post.authors | replace: "Shenhan Qian", "<u>Shenhan Qian</u>" }}</div>
+                <div class="post-list-meta-italic">
+                  {% assign list = "" | split: ',' %}
+                  {% for author in post.authors %}
+                    {% assign name = author %}
 
-                <!-- <div class="post-list-meta">{{ post.publisher | replace: "(", "(<b>" | replace: ")", "</b>)" }}</div> -->
+                    {% if name contains "*" %}
+                      {% assign name = name | remove: "*" %}
+                      {% assign tag = "*" %}
+                    {% else %}
+                      {% assign tag = "" %}
+                    {% endif %}
+
+                    {% assign p = site.data.people[name] %}
+
+                    {% if p != "" and p != nil %}
+                      {% capture name %}<a href={{p.homepage}}>{{p.name}}</a>{% endcapture %}
+                    {% endif %}
+                  
+                    {% assign name = name | append: tag %}
+                    {% assign list = list | push: name %}
+                  {% endfor %}
+                  {{ list | join: ", " | replace: "Shenhan Qian", "<u>Shenhan Qian</u>" }}
+                </div>
+
                 <div class="post-list-meta">{{ post.publisher }}</div>
 
                 <div class="post-list-link-resource">

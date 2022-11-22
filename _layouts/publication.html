@@ -11,7 +11,30 @@ layout: default
         {{ page.date | date: date_format }}
       </time> -->
   
-      <div class="pub-meta-italic">{{ page.authors}}</div>
+      <div class="pub-meta-italic">
+        {% assign list = "" | split: ',' %}
+        {% for author in page.authors %}
+          {% assign name = author %}
+
+          {% if name contains "*" %}
+            {% assign name = name | remove: "*" %}
+            {% assign tag = "*" %}
+          {% else %}
+            {% assign tag = "" %}
+          {% endif %}
+
+          {% assign p = site.data.people[name] %}
+
+          {% if p != "" and p != nil %}
+            {% capture name %}<a href={{p.homepage}}>{{p.name}}</a>{% endcapture %}
+          {% endif %}
+        
+          {% assign name = name | append: tag %}
+          {% assign list = list | push: name %}
+        {% endfor %}
+        {{ list | join: ", " }}
+      </div>
+
       <div class="pub-meta">{{ page.publisher }}</div>
 
       <div class="pub-resource-list">
